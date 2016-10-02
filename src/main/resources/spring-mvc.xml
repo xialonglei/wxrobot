@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+	<context:component-scan base-package="com.xll">
+        <context:include-filter type="annotation"
+            expression="org.springframework.stereotype.Controller" />
+        <!-- 排除了扫描@service的bean。 -->
+        <!-- 由于web启动时，首先加载这个spring-mvc.xml文件，没有加载application等文件 -->
+        <!-- 这时将生成一个没有事务的service实例注入到controller -->
+        <context:exclude-filter type="annotation"
+            expression="org.springframework.stereotype.Service" />
+    </context:component-scan>
+	<!-- 开启注解 -->
+    <mvc:annotation-driven />
+    <!-- 视图解析，控制器执行页面跳转，我的页面除了index.jsp，其他的页面都在WEB-INF下，所以需要通过访问控制器来执行页面跳转，而不能直接进行访问，会自动帮你加上前缀/WEB-INF/jsp/，和后缀.jsp -->
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+    <!-- 完成请求和注解POJO的映射 -->
+    <bean
+        class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+    <!-- 声明DispatcherServlet不要拦截下面声明的目录，因为我们上面配置时是拦截所有路径 -->
+    <!-- 但是我们不希望静态资源(js/image/css)访问被拦截，因此要作如下配置，才能防止被DispatcherServlet拦截 -->
+    <!--我的所有静态资源都在webapp/resources/下面-->
+    <mvc:resources location="/resources/" mapping="/resources/**" />
+</beans>
