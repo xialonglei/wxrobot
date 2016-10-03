@@ -1,8 +1,14 @@
-package com.xll.data;
+package com.xll.bean;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class WXData {
 	
 	private static WXData data = new WXData();
+	
+	/**存储所有联系人 key:userName value:Contactor*/
+	private Map<String , Contactor> contactors = new HashMap<String , Contactor>();
 	
 	private String uuid;
 	
@@ -26,5 +32,13 @@ public class WXData {
 	
 	public static WXData getSingleton(){
 		return data;
+	}
+
+	public Map<String, Contactor> getContactors() {
+		return contactors;
+	}
+
+	public void setContactors(Map<String, Contactor> contactors) {
+		this.contactors = contactors;
 	}
 }

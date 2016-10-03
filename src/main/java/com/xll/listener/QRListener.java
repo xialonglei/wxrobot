@@ -4,8 +4,8 @@ import java.io.IOException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebResponse;
+import com.xll.bean.WXData;
 import com.xll.constant.Constants;
-import com.xll.data.WXData;
 import com.xll.listener.ResponseListener;
 
 public class QRListener extends ResponseListener{
@@ -28,10 +28,4 @@ public class QRListener extends ResponseListener{
 		}
 		return response;
 	}
-
-	@Override
-	public void handle() {
-		
-	}
-	
 }

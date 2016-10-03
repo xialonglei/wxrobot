@@ -21,10 +21,4 @@ public class LoginListener extends ResponseListener{
 		}
 		return response;
 	}
-
-	@Override
-	public void handle() {
-		
-	}
-
 }

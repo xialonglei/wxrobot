@@ -1,14 +1,18 @@
 package com.xll.util;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.xll.listener.LoginListener;
-import com.xll.listener.QRListener;
+import com.xll.listener.factory.ListenerFactory;
+
+/**
+ * ¼àÌýÆ÷Æô¶¯Àà
+ *
+ * @author xialonglei
+ * @date 2016/10/02
+ */
 public class ListenerLauncher {
 	
-	@SuppressWarnings("resource")
-	public void init(WebClient webClient){
-		new QRListener(webClient);
-		new LoginListener(webClient);
+	public void init(MyWebClient webClient) {
+		ListenerFactory.getListenerInstance("qr", webClient);
+		ListenerFactory.getListenerInstance("login", webClient);
+		ListenerFactory.getListenerInstance("contact", webClient);
 	}
-
 }
