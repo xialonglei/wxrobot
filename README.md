@@ -6,4 +6,5 @@
 开发工具以及框架:spring+springmvc+eclipse+tomcat+windows7  
 
 
-服务器启动后，通过访问http://localhost:8080/wxrobot/wx/getImage获得登录二维码  
+服务器启动后，通过访问 http://localhost:8080/wxrobot/wx/getImage 获得登录二维码，效果图如下  
+![](wxrobot/WXQR.PNG)
