@@ -2,6 +2,7 @@ package com.xll.service;
 
 import java.util.List;
 
+
 /**
  * 处理向联系人发送消息
  * 

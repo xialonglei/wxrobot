@@ -36,7 +36,7 @@ public class ContactListener extends ResponseListener {
 		JSONArray memberList = obj.getJSONArray("MemberList");
 		for (int i = 0; i < memberList.size(); i++) {
 			JSONObject friend = memberList.getJSONObject(i);
-			contactors.put(friend.getString("UserName"),
+			contactors.put(friend.getString("NickName"),
 					new Contactor(friend.getString("UserName"), friend.getString("NickName"),
 							friend.getString("Signature"), friend.getString("AttrStatus"), friend.getString("Province"),
 							friend.getString("City")));
