@@ -11,6 +11,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.xll.bean.WXData;
@@ -19,6 +21,8 @@ import com.xll.service.MessageService;
 
 @Service("messageService")
 public class MessageServiceImpl implements MessageService {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(MessageServiceImpl.class);
 
 	@Override
 	public void sendTextMessage(List<String> userNames, String message) {
@@ -68,9 +72,9 @@ public class MessageServiceImpl implements MessageService {
 						continue;
 					}
 				} catch (ClientProtocolException e) {
-					e.printStackTrace();
+					LOGGER.error("{}" , e.getMessage());
 				} catch (IOException e) {
-					e.printStackTrace();
+					LOGGER.error("{}" , e.getMessage());
 				}
 			}
 		} finally {
@@ -79,7 +83,7 @@ public class MessageServiceImpl implements MessageService {
 					closeableHttpClient.close();
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOGGER.error("{}" , e.getMessage());
 			}
 		}
 	}

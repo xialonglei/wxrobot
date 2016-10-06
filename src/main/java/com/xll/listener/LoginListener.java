@@ -6,6 +6,9 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -16,6 +19,8 @@ import com.xll.constant.Constants;
 import com.xll.listener.ResponseListener;
 
 public class LoginListener extends ResponseListener{
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoginListener.class);
 
 	public LoginListener(WebClient webClient) throws IllegalArgumentException {
 		super(webClient);
@@ -24,6 +29,7 @@ public class LoginListener extends ResponseListener{
 	@Override
 	public WebResponse getResponse(WebRequest request) throws java.io.IOException {
 		WebResponse response = super.getResponse(request);
+		LOGGER.info("{}" , response.getWebRequest().getUrl().toString());
 		handle(response);
 		return response;
 	}
@@ -32,6 +38,7 @@ public class LoginListener extends ResponseListener{
 	public void handle(WebResponse response) {
 		String resContent = null;
 		String detectUrl = response.getWebRequest().getUrl().toString();
+		
 		if(detectUrl.contains("mmwebwx-bin/webwxnewloginpage")){
 			resContent = Constants.XML_HEADER + response.getContentAsString();
 			
