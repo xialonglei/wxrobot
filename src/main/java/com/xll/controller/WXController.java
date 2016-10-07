@@ -1,12 +1,13 @@
 package com.xll.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +27,8 @@ import com.xll.util.MyWebClient;
 @RequestMapping("/wx")
 public class WXController {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(WXController.class);
+	
 	@Resource
 	private MessageService messageServiceImpl;
 	
@@ -35,12 +38,13 @@ public class WXController {
 	@RequestMapping("/getImage")
 	public String getImage(HttpSession session){
 		//Æô¶¯¼àÌýÆ÷
+		LOGGER.info("¼àÌýÆ÷¿ªÊ¼³õÊ¼»¯!");
 		new ListenerLauncher().init(myWebClient);
 		try {
 			myWebClient.visitUrl(Constants.LOGIN_URL);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
+			Thread.sleep(1000);
+		} catch (Exception e) {
+			LOGGER.error("" , e);
 		}
 		session.setAttribute("qrUrl", WXData.getSingleton().getQrUrl());
 		return "qr";
@@ -52,10 +56,16 @@ public class WXController {
 		if(WXData.getSingleton() != null && WXData.getSingleton().getContactors() != null && WXData.getSingleton().getContactors().get("One¡¢Life") != null){
 			List<String> sendUsernames = new ArrayList<String>();
 			sendUsernames.add(WXData.getSingleton().getContactors().get("One¡¢Life").getUserName());
-			messageServiceImpl.sendTextMessage(sendUsernames , "??");
-			return "send message success.";
+			try{
+				messageServiceImpl.sendTextMessage(sendUsernames , "²âÊÔ");
+			}catch(Exception e){
+				LOGGER.error("" , e);
+				return Constants.SEND_MSG_FAILURE;
+			}
+			
+			return Constants.SEND_MSG_SUCCESS;
 		}else{
-			return "first , you should login the weixin.";
+			return Constants.LOGIN_HINT;
 		}
 		
 	}

@@ -21,5 +21,10 @@ public class Constants {
 	public static final String ACCEPT_VALUE = "*/*";
 	public static final String ACCEPT_LANGUAGE_NAME = "Accept-Language";
 	public static final String ACCEPT_LANGUAGE_VALUE = "zh-CN,zh;q=0.8";
+	
+	/************************************send message status******************************/
+	public static final String SEND_MSG_FAILURE = "send message fail.";
+	public static final String SEND_MSG_SUCCESS = "send message success.";
+	public static final String LOGIN_HINT = "first , you should login the weixin.";
 
 }

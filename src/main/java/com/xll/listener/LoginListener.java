@@ -29,7 +29,6 @@ public class LoginListener extends ResponseListener{
 	@Override
 	public WebResponse getResponse(WebRequest request) throws java.io.IOException {
 		WebResponse response = super.getResponse(request);
-		LOGGER.info("{}" , response.getWebRequest().getUrl().toString());
 		handle(response);
 		return response;
 	}
@@ -40,13 +39,16 @@ public class LoginListener extends ResponseListener{
 		String detectUrl = response.getWebRequest().getUrl().toString();
 		
 		if(detectUrl.contains("mmwebwx-bin/webwxnewloginpage")){
+			
+			LOGGER.info("监听到登录的URL：[{}]" , response.getWebRequest().getUrl().toString());
+			
 			resContent = Constants.XML_HEADER + response.getContentAsString();
 			
 			Document doc = null;
 			try {
 				doc = DocumentHelper.parseText(resContent);
 			} catch (DocumentException e) {
-				e.printStackTrace();
+				LOGGER.error("" , e);
 			}
 			
 			Element root = doc.getRootElement();
@@ -60,9 +62,13 @@ public class LoginListener extends ResponseListener{
 			baseRequest.put("DeviceID", "e872491039942961");
 			
 		}else if(WXData.getSingleton().getLoginUsername() == null && detectUrl.contains("mmwebwx-bin/webwxinit")){
+			
 			resContent = response.getContentAsString();
 			JSONObject obj = JSON.parseObject(resContent);
 			String loginUsername = obj.getJSONObject("User").getString("UserName");
+			
+			LOGGER.info("监听到获取登录用户名的URL：[{}]，并且登录用户名:[{}]" , response.getWebRequest().getUrl().toString() , loginUsername);
+			
 			WXData.getSingleton().setLoginUsername(loginUsername);
 			WXData.getSingleton().getMsg().put("FromUserName", loginUsername);
 		}
