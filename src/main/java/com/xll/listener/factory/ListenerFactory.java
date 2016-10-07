@@ -7,7 +7,7 @@ import com.xll.listener.ResponseListener;
 import com.xll.util.MyWebClient;
 
 /**
- * 简单工厂，用来返回ResponseListener实例
+ * 鐢熶骇ResponseListener瀹炰緥宸ュ巶
  *
  * @author xialonglei
  * @date 2016/10/03

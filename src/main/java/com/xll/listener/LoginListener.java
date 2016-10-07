@@ -1,5 +1,6 @@
 package com.xll.listener;
 
+import java.util.List;
 import java.util.Map;
 
 import org.dom4j.Document;
@@ -14,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebResponse;
+import com.gargoylesoftware.htmlunit.util.NameValuePair;
 import com.xll.bean.WXData;
 import com.xll.constant.Constants;
 import com.xll.listener.ResponseListener;
@@ -38,9 +40,19 @@ public class LoginListener extends ResponseListener{
 		String resContent = null;
 		String detectUrl = response.getWebRequest().getUrl().toString();
 		
+		
 		if(detectUrl.contains("mmwebwx-bin/webwxnewloginpage")){
 			
-			LOGGER.info("监听到登录的URL：[{}]" , response.getWebRequest().getUrl().toString());
+			LOGGER.info("鐩戝惉鍒板凡鎵弿寰俊URL[{}]" , response.getWebRequest().getUrl().toString());
+			
+			List<NameValuePair> headers = response.getResponseHeaders();
+			for(NameValuePair pair : headers){
+				if(pair.getValue().contains("webwx_data_ticket")){
+					String webDataTicket = pair.getValue().split(";")[0].split("=")[1];
+					LOGGER.info("鑾峰彇鐨剋eb_data_ticket[{}]" , webDataTicket);
+					WXData.getSingleton().setWebDataTicket(webDataTicket);
+				}
+			}
 			
 			resContent = Constants.XML_HEADER + response.getContentAsString();
 			
@@ -67,10 +79,9 @@ public class LoginListener extends ResponseListener{
 			JSONObject obj = JSON.parseObject(resContent);
 			String loginUsername = obj.getJSONObject("User").getString("UserName");
 			
-			LOGGER.info("监听到获取登录用户名的URL：[{}]，并且登录用户名:[{}]" , response.getWebRequest().getUrl().toString() , loginUsername);
+			LOGGER.info("鐩戝惉鑾峰彇鐧诲綍鐢ㄦ埛URL[{}],鐧诲綍鐢ㄦ埛鍚峓{}]" , response.getWebRequest().getUrl().toString() , loginUsername);
 			
 			WXData.getSingleton().setLoginUsername(loginUsername);
-			WXData.getSingleton().getMsg().put("FromUserName", loginUsername);
 		}
 	}
 }

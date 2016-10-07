@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import com.xll.bean.RobotResponse;
 import com.xll.bean.WXData;
 import com.xll.constant.Constants;
-import com.xll.controller.WXController;
 import com.xll.service.MessageService;
 
 /**
@@ -22,22 +21,21 @@ import com.xll.service.MessageService;
 @Component
 public class SendMessageTask {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(WXController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SendMessageTask.class);
 
 	@Resource
 	private MessageService messageServiceImpl;
 	
-	/**Ã¿¸ôÒ»·ÖÖÓ´¥·¢Ò»´Î*/
     @Scheduled(cron="0 0/1 * * * ?")
 	public void sendMessage() {
-    	if(WXData.getSingleton() != null && WXData.getSingleton().getContactors() != null && WXData.getSingleton().getContactors().get("One¡¢Life") != null){
+    	if(WXData.getSingleton() != null && WXData.getSingleton().getContactors() != null && WXData.getSingleton().getContactors().get("Oneã€Life") != null){
 			List<String> sendUsernames = new ArrayList<String>();
-			sendUsernames.add(WXData.getSingleton().getContactors().get("One¡¢Life").getUserName());
-			sendUsernames.add(WXData.getSingleton().getContactors().get("ÊÀ½çÎ´Ä©ÈÕ").getUserName());
+			sendUsernames.add(WXData.getSingleton().getContactors().get("Oneã€Life").getUserName());
+			//sendUsernames.add(WXData.getSingleton().getContactors().get("ä¸–ç•Œæœªæœ«æ—¥").getUserName());
 			try{
 				String message = RobotResponse.res.get((int)(Math.random() * RobotResponse.res.size()));
 				messageServiceImpl.sendTextMessage(sendUsernames , message);
-				LOGGER.info("{},·¢ËÍµÄÏûÏ¢ÊÇ[{}]" , Constants.SEND_MSG_SUCCESS , message);
+				LOGGER.info("{}å‘é€çš„æ¶ˆæ¯å†…å®¹[{}]" , Constants.SEND_MSG_SUCCESS , message);
 			}catch(Exception e){
 				LOGGER.error("{}" , e , Constants.SEND_MSG_FAILURE);
 			}	

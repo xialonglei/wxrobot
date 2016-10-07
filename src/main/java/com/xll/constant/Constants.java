@@ -1,7 +1,7 @@
 package com.xll.constant;
 
 /**
- * ¥Ê∑≈≥£¡ø
+ * Â∏∏ÈáèÁ±ª
  * 
  * @author xialonglei
  * @date 2016/10/02
@@ -13,6 +13,8 @@ public class Constants {
 	public static final String LOGIN_URL = "https://wx.qq.com/";
 	public static final String QR_URL_PREFIX = "https://login.weixin.qq.com/qrcode/";
 	public static final String SEND_MSG_PREFIX = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxsendmsg";
+	public static final String GET_MEDIA_ID_URL = "https://file.wx.qq.com/cgi-bin/mmwebwx-bin/webwxuploadmedia?f=json";
+	public static final String SEND_MULTI_MESSAGE_PREFIX = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxsendmsgimg?fun=async&f=json&lang=zh_CN&pass_ticket=";
 	
 	/************************************ http header *************************************/
 	public static final String USER_AGENT_NAME = "User-Agent";

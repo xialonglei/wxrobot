@@ -29,7 +29,7 @@ public class ContactListener extends ResponseListener {
 		String contactUrl = response.getWebRequest().getUrl().toString();
 		if (contactUrl.contains("mmwebwx-bin/webwxgetcontact")) {
 			
-			LOGGER.info("监听到获取联系人的URL:[{}]" , response.getWebRequest().getUrl().toString());
+			LOGGER.info("鐩戝惉鍒拌幏鍙栬仈绯讳汉URL:[{}]" , response.getWebRequest().getUrl().toString());
 			
 			handle(response);
 		}

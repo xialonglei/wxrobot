@@ -31,7 +31,7 @@ public class QRListener extends ResponseListener{
 			String resContent = response.getContentAsString().replace(" ", "").split(";")[1];
 			String uuid = resContent.substring(resContent.indexOf("=") + 1).replace("\"", "");
 			
-			LOGGER.info("监听到微信已经扫描的URL:[{}]，拼接的微信二维码URL:[{}]" , response.getWebRequest().getUrl().toString() , Constants.QR_URL_PREFIX + uuid);
+			LOGGER.info("鐩戝惉鑾峰彇浜岀淮鐮乁RL:[{}],杩斿洖鐨勪簩缁寸爜URL:[{}]" , response.getWebRequest().getUrl().toString() , Constants.QR_URL_PREFIX + uuid);
 			
 			data.setUuid(uuid);
 			data.setQrUrl(Constants.QR_URL_PREFIX + uuid);

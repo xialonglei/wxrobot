@@ -3,7 +3,7 @@ package com.xll.util;
 import com.xll.listener.factory.ListenerFactory;
 
 /**
- * ¼àÌıÆ÷Æô¶¯Àà
+ * çœŸæ­£æ‰§è¡Œç›‘å¬å™¨åˆå§‹åŒ–ç±»
  *
  * @author xialonglei
  * @date 2016/10/02

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xll.bean.WXData;
@@ -37,8 +38,7 @@ public class WXController {
 	
 	@RequestMapping("/getImage")
 	public String getImage(HttpSession session){
-		//∆Ù∂Øº‡Ã˝∆˜
-		LOGGER.info("º‡Ã˝∆˜ø™ º≥ı ºªØ!");
+		LOGGER.info("ÁõëÂê¨Âô®ÂºÄÂßãÂàùÂßãÂåñ!");
 		new ListenerLauncher().init(myWebClient);
 		try {
 			myWebClient.visitUrl(Constants.LOGIN_URL);
@@ -53,11 +53,31 @@ public class WXController {
 	@RequestMapping("/sendMessage")
 	@ResponseBody
 	public String sendMessage(){
-		if(WXData.getSingleton() != null && WXData.getSingleton().getContactors() != null && WXData.getSingleton().getContactors().get("One°¢Life") != null){
+		if(WXData.getSingleton() != null && WXData.getSingleton().getContactors() != null && WXData.getSingleton().getContactors().get("One„ÄÅLife") != null){
 			List<String> sendUsernames = new ArrayList<String>();
-			sendUsernames.add(WXData.getSingleton().getContactors().get("One°¢Life").getUserName());
+			sendUsernames.add(WXData.getSingleton().getContactors().get("One„ÄÅLife").getUserName());
 			try{
-				messageServiceImpl.sendTextMessage(sendUsernames , "≤‚ ‘");
+				messageServiceImpl.sendTextMessage(sendUsernames , "??");
+			}catch(Exception e){
+				LOGGER.error("" , e);
+				return Constants.SEND_MSG_FAILURE;
+			}
+			
+			return Constants.SEND_MSG_SUCCESS;
+		}else{
+			return Constants.LOGIN_HINT;
+		}
+		
+	}
+	
+	@RequestMapping("/sendMultiMessage")
+	@ResponseBody
+	public String sendMultiMessage(@RequestParam String path){
+		if(WXData.getSingleton() != null && WXData.getSingleton().getContactors() != null && WXData.getSingleton().getContactors().get("One„ÄÅLife") != null){
+			List<String> sendUsernames = new ArrayList<String>();
+			sendUsernames.add(WXData.getSingleton().getContactors().get("One„ÄÅLife").getUserName());
+			try{
+				messageServiceImpl.sendMultiMessage(sendUsernames , path);
 			}catch(Exception e){
 				LOGGER.error("" , e);
 				return Constants.SEND_MSG_FAILURE;

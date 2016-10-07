@@ -1,29 +1,29 @@
 package com.xll.bean;
 
 /** 
- * 存储联系人的信息
+ * 鑱旂郴浜虹被
  * 
  * @author xialonglei
  * @date 2016/10/03
  */
 public class Contactor {
 	
-	/**用户临时的名字,对应微信当中的UserName,每次登陆都会改变*/
+	/**瀵瑰簲寰俊UserName*/
 	private String userName; 
 	
-	/**别名,对应微信当中的NickName*/
+	/**瀵瑰簲寰俊NickName*/
 	private String nickName;
 	
-	/**微信签名,对应微信当中的Signature*/
+	/**瀵瑰簲寰俊Signature*/
 	private String signature;
 	
-	/**对应微信当中的AttrStatus*/
+	/**瀵瑰簲寰俊AttrStatus*/
 	private String attrStatus;
 	
-	/**省份,对应微信当中的Province*/
+	/**瀵瑰簲寰俊Province*/
 	private String province;
 	
-	/**城市,对应微信当中的City*/
+	/**瀵瑰簲寰俊City*/
 	private String city;
 	
 	public Contactor(String userName, String nickName, String signature, String attrStatus, String province,

@@ -4,17 +4,17 @@ import java.util.List;
 
 
 /**
- * ´¦ÀíÏòÁªÏµÈË·¢ËÍÏûÏ¢
+ * å‘é€æ¶ˆæ¯æ¥å£
  * 
  * @author xialonglei
  * @date 2016/10/03
  */
 public interface MessageService {
 	
-	/**·¢ËÍÎÄ±¾ÏûÏ¢*/
+	/**å‘é€æ–‡æœ¬æ¶ˆæ¯*/
 	void sendTextMessage(List<String> userNames , String message);
 	
-	/**·¢ËÍÍ¼Æ¬ÏûÏ¢*/
+	/**å‘é€æ–‡ä»¶æ¶ˆæ¯*/
 	void sendMultiMessage(List<String> userNames , String path);
 
 }

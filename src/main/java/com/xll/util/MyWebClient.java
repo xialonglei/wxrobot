@@ -9,7 +9,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * 模拟浏览器的类
+ * 妯℃嫙娴忚鍣ㄧ被
  * 
  * @author xialonglei
  * @date 2016/10/02
@@ -32,10 +32,10 @@ public class MyWebClient extends WebClient {
 	}
 
 	/**
-	 * 当执行this.getPage(url)时会触发监听器监听
+	 * 鎵цthis.getPage(url)浼氳Е鍙戠洃鍚櫒
 	 * 
 	 * @param url
-	 *            要访问的url
+	 *            璇锋眰鐨剈rl
 	 * @return void
 	 */
 	public void visitUrl(String url) throws IOException {

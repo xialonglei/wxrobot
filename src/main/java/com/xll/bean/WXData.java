@@ -7,7 +7,7 @@ public class WXData {
 	
 	private static WXData data = new WXData();
 	
-	/**´æ´¢ËùÓĞÁªÏµÈË key:userName value:Contactor*/
+	/**å­˜æ”¾è”ç³»äºº key:userName value:Contactor*/
 	private Map<String , Contactor> contactors = new HashMap<String , Contactor>();
 	
 	private String uuid;
@@ -17,11 +17,10 @@ public class WXData {
 	private String loginUsername;
 	
 	private String passTicket;
-		
-	/*********************¶Ô·¢ËÍĞÅÏ¢ËùÒª´øµÄĞÅÏ¢½øĞĞ·â×°************************/
+	
+	private String webDataTicket;
+	/*********************å‘é€æ¶ˆæ¯éœ€è¦çš„ä¿¡æ¯************************/
 	private Map<String, Object> baseRequest = new HashMap<String, Object>();
-
-	private Map<String, Object> msg = new HashMap<String, Object>();
 
 	public String getUuid() {
 		return uuid;
@@ -67,20 +66,20 @@ public class WXData {
 		this.baseRequest = baseRequest;
 	}
 
-	public Map<String, Object> getMsg() {
-		return msg;
-	}
-
-	public void setMsg(Map<String, Object> msg) {
-		this.msg = msg;
-	}
-
 	public String getPassTicket() {
 		return passTicket;
 	}
 
 	public void setPassTicket(String passTicket) {
 		this.passTicket = passTicket;
+	}
+
+	public String getWebDataTicket() {
+		return webDataTicket;
+	}
+
+	public void setWebDataTicket(String webDataTicket) {
+		this.webDataTicket = webDataTicket;
 	}
 	
 }

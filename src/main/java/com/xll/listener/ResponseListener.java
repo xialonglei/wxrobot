@@ -5,7 +5,7 @@ import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.util.FalsifyingWebConnection;
 
 /**
- *³éÏó¼àÌıÆ÷ 
+ *ç›‘å¬å™¨å·¥å‚
  *
  *@author xialonglei
  *@date 2016/10/02

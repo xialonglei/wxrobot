@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * 发送https请求的工具类
+ * 鍙戦�乭ttps璇锋眰鐨勫伐鍏风被
  * 
  * @author xialonglei
  * @date 2016/10/7

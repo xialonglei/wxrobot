@@ -9,28 +9,24 @@ public class RobotResponse {
 	
 	
 	static {
-		res.add("²âÊÔ!");
+		res.add("æ‚¨å¥½!");
 		
-		res.add("ÎÒÓĞÊÂ£¬ÇëÉÔºóÔÙ»Ø¸´!");
+		res.add("å¤©ç‹ç›–åœ°è™!");
 		
-		res.add("ÌìÍõ¸ÇµØ»¢!");
+		res.add("çŒœçŒœæˆ‘æ˜¯è°!");
 		
-		res.add("²Â²ÂÎÒÊÇË­!");
+		res.add("ä¸è¦å±è”½æˆ‘!");
 		
-		res.add("³ÇÊĞÌ×Â·Éî!");
+		res.add("æˆ‘æ˜¯å¾®ä¿¡æœºå™¨äºº!");
 		
-		res.add("¹ş¹ş");
+		res.add("good good study , day day up!");
 		
 		res.add("Thank you!");
 		
-		res.add("ÕâÌõ²»ÓÃ»Ø¸´!");
+		res.add("æˆ‘æ˜¯ä¸€ä¸ªé€—é€¼!");
 		
-		res.add("´ó¼ÒºÃ,ÎÒÊÇ»úÆ÷ÈË!");
+		res.add("å°‘ç‚¹å¥—è·¯ , å¤šç‚¹çœŸè¯š!");
 		
-		res.add("²»ÒªÆÁ±ÎÎÒ!");
+		res.add("è¿™æ¡å¯ä»¥ä¸å›å¤!");
 	}
-	
-	
-	
-
 }
