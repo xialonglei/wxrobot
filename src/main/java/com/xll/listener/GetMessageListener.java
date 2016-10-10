@@ -15,10 +15,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebResponse;
+import com.xll.bean.Command;
 import com.xll.bean.Contactor;
 import com.xll.bean.RobotResponse;
 import com.xll.bean.WXData;
-import com.xll.constant.Constants;
 import com.xll.service.MessageService;
 
 /**
@@ -34,7 +34,7 @@ public class GetMessageListener extends ResponseListener {
 	private MessageService messageServiceImpl;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GetMessageListener.class);
-
+	
 	public GetMessageListener(WebClient webClient , MessageService messageServiceImpl) throws IllegalArgumentException {
 		super(webClient);
 		this.messageServiceImpl = messageServiceImpl;
@@ -82,6 +82,7 @@ public class GetMessageListener extends ResponseListener {
 		
 		LOGGER.info("好友[{}]向您发送消息,消息的内容是[{}]", nickName, con);
 		
+		//过滤msg&gt信息
 		if(con.contains("msg&gt")){
 			return;
 		}
@@ -89,7 +90,7 @@ public class GetMessageListener extends ResponseListener {
 		if(!WXData.getRecieveFriends().contains(friend)){
 			List<String> autoRes = new ArrayList<String>();
 			autoRes.add(friend);
-			messageServiceImpl.sendTextMessage(autoRes, "您可以尝试发送,如下指令[loop]");
+			messageServiceImpl.sendTextMessage(autoRes, "您可以尝试发送,如下指令[loop,all]");
 			WXData.getRecieveFriends().add(friend);
 			return;
 		}
@@ -99,12 +100,15 @@ public class GetMessageListener extends ResponseListener {
 	}
 
 	private void autoResponse(String friend , String con) {
-		if(con.trim().equals("loop")){
+		
+		String message = null;
+		List<String> autoRes = new ArrayList<String>();
+		autoRes.add(friend);
+		
+		if(con.toLowerCase().trim().equals(Command.LOOP)){
 			new Thread(new Runnable(){
 				@Override
 				public void run() {
-					List<String> autoRes = new ArrayList<String>();
-					autoRes.add(friend);
 					while(!stop){
 						messageServiceImpl.sendTextMessage(autoRes, "您中毒了！[想要终止试试stop,有5s延迟!]");
 						try {
@@ -115,18 +119,26 @@ public class GetMessageListener extends ResponseListener {
 					}
 				}
 				
-			}).start();	
+			}).start();
 
-		}else if(con.trim().equals("stop")){
+		}else if(con.toLowerCase().trim().equals(Command.STOP)){
 			stop = true;
+		}else if(con.toLowerCase().trim().equals(Command.ALL)){
+			StringBuilder s = new StringBuilder();
+			s.append("您的好友所有好友名单如下:\n");
+			for(Entry<String , Contactor> entry : WXData.getSingleton().getContactors().entrySet()){
+				s.append(entry.getKey() + "\n");
+			}
+			message = s.toString();
+			
 		}else{
-			List<String> autoRes = new ArrayList<String>();
-			autoRes.add(friend);
-			String message = RobotResponse.autoSend.get((int)(Math.random() * RobotResponse.autoSend.size()));
-			messageServiceImpl.sendTextMessage(autoRes, message);
-			LOGGER.info("{}发送的消息内容[{}]" , Constants.SEND_MSG_SUCCESS , message);
+			if(RobotResponse.dirtyWords.contains(con.trim().replace(" ", ""))){
+				message = "维护网络环境,人人有责!";
+			}else{
+				message = RobotResponse.autoSend.get((int)(Math.random() * RobotResponse.autoSend.size()));
+			}
 		}
-		
+		messageServiceImpl.sendTextMessage(autoRes, message);
 	}
 
 }
