@@ -1,9 +1,11 @@
 package com.xll.listener.factory;
 
 import com.xll.listener.ContactListener;
+import com.xll.listener.GetMessageListener;
 import com.xll.listener.LoginListener;
 import com.xll.listener.QRListener;
 import com.xll.listener.ResponseListener;
+import com.xll.service.MessageService;
 import com.xll.util.MyWebClient;
 
 /**
@@ -14,7 +16,7 @@ import com.xll.util.MyWebClient;
  */
 public class ListenerFactory {
 
-	public static ResponseListener getListenerInstance(String type, MyWebClient myWebClient) {
+	public static ResponseListener getListenerInstance(String type, MyWebClient myWebClient , MessageService messageServiceImpl) {
 
 		switch (type) {
 			case "login":
@@ -23,6 +25,8 @@ public class ListenerFactory {
 				return new ContactListener(myWebClient);
 			case "qr":
 				return new QRListener(myWebClient);
+			case "get":
+				return new GetMessageListener(myWebClient , messageServiceImpl);
 		}
 
 		return null;

@@ -1,11 +1,15 @@
 package com.xll.bean;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class WXData {
 	
 	private static WXData data = new WXData();
+	
+	private static Set<String> recieveFriends = new HashSet<String>();
 	
 	/**存放联系人 key:userName value:Contactor*/
 	private Map<String , Contactor> contactors = new HashMap<String , Contactor>();
@@ -81,5 +85,14 @@ public class WXData {
 	public void setWebDataTicket(String webDataTicket) {
 		this.webDataTicket = webDataTicket;
 	}
+
+	public static Set<String> getRecieveFriends() {
+		return recieveFriends;
+	}
+
+	public static void setRecieveFriends(Set<String> recieveFriends) {
+		WXData.recieveFriends = recieveFriends;
+	}
+	
 	
 }

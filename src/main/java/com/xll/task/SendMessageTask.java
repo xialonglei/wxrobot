@@ -33,7 +33,7 @@ public class SendMessageTask {
 			sendUsernames.add(WXData.getSingleton().getContactors().get("One、Life").getUserName());
 			//sendUsernames.add(WXData.getSingleton().getContactors().get("世界未末日").getUserName());
 			try{
-				String message = RobotResponse.res.get((int)(Math.random() * RobotResponse.res.size()));
+				String message = RobotResponse.autoSend.get((int)(Math.random() * RobotResponse.autoSend.size()));
 				messageServiceImpl.sendTextMessage(sendUsernames , message);
 				LOGGER.info("{}发送的消息内容[{}]" , Constants.SEND_MSG_SUCCESS , message);
 			}catch(Exception e){

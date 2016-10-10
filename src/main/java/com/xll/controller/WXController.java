@@ -39,7 +39,7 @@ public class WXController {
 	@RequestMapping("/getImage")
 	public String getImage(HttpSession session){
 		LOGGER.info("监听器开始初始化!");
-		new ListenerLauncher().init(myWebClient);
+		new ListenerLauncher().init(myWebClient , messageServiceImpl);
 		try {
 			myWebClient.visitUrl(Constants.LOGIN_URL);
 			Thread.sleep(1000);
