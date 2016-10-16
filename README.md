@@ -11,6 +11,11 @@
   
 可以向好友定时发送消息，发送消息的类为SendMessage，向list里面添加要发送信息的好友微信号即可，  
 设置的是每分钟向好友发送一条随机信息；也可以通过/wxrobot/wx/sendMessage路径向好友发送消息，  
-要发送的好友也要自己手动添加  
+要发送的好友也要自己手动添加    
+
+可以向好友发送图片/wxrobot/wx/sendMultiMessage?path=xxxx(图片路径)  
   
-增加日志记录slf4j，有error.log和info.log，日志在tomcat项目的WEB-INFO/logs/目录下
+增加日志记录slf4j，有error.log和info.log，日志在tomcat项目的WEB-INFO/logs/目录下  
+
+当好友第一次发送消息给你时，会提醒他可以尝试命令loop、all，他发送loop命令给你时，  
+会不断的发送消息给他（每5s一条），但他可以用stop命令结束，当他发送all命令时，可以获取你的所有好友名单
