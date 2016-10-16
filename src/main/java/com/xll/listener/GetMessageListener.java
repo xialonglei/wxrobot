@@ -20,6 +20,7 @@ import com.xll.bean.Contactor;
 import com.xll.bean.RobotResponse;
 import com.xll.bean.WXData;
 import com.xll.service.MessageService;
+import com.xll.util.PicBootstrap;
 
 /**
  * 接收消息的监听器
@@ -90,7 +91,7 @@ public class GetMessageListener extends ResponseListener {
 		if(!WXData.getRecieveFriends().contains(friend)){
 			List<String> autoRes = new ArrayList<String>();
 			autoRes.add(friend);
-			messageServiceImpl.sendTextMessage(autoRes, "您可以尝试发送,如下指令[loop,all]");
+			messageServiceImpl.sendTextMessage(autoRes, "您可以尝试发送,如下指令[loop,all,pic]");
 			WXData.getRecieveFriends().add(friend);
 			return;
 		}
@@ -125,12 +126,23 @@ public class GetMessageListener extends ResponseListener {
 			stop = true;
 		}else if(con.toLowerCase().trim().equals(Command.ALL)){
 			StringBuilder s = new StringBuilder();
-			s.append("您的好友所有好友名单如下:\n");
+			s.append("我所有好友名单如下:\n");
 			for(Entry<String , Contactor> entry : WXData.getSingleton().getContactors().entrySet()){
 				s.append(entry.getKey() + "\n");
 			}
 			message = s.toString();
 			
+		}else if(con.toLowerCase().trim().equals(Command.OPEN)){
+			stop = false;
+		}else if(con.toLowerCase().trim().equals(Command.PIC)){
+			if(PicBootstrap.picsPath.size() > 0){
+				message = PicBootstrap.picsPath.get((int)(Math.random() * PicBootstrap.picsPath.size()));
+				LOGGER.info("您向好友发送图片的路径[{}]" , message);
+				messageServiceImpl.sendMultiMessage(autoRes, message);
+				return;
+			}else{
+				message = "对不起,图片库还未初始化完成,请稍后再发送pic指令!";
+			}
 		}else{
 			if(RobotResponse.dirtyWords.contains(con.trim().replace(" ", ""))){
 				message = "维护网络环境,人人有责!";

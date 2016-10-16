@@ -31,6 +31,8 @@ public class RobotResponse {
 		
 		autoSend.add("这条可以不回复!");
 		
+		autoSend.add("你是不是傻!");
+		
 		//===============================
 		dirtyWords.add("操你妈");
 		dirtyWords.add("SB");
@@ -44,5 +46,7 @@ public class RobotResponse {
 		dirtyWords.add("坑逼");
 		dirtyWords.add("你是什么玩意");
 		dirtyWords.add("我是你爹");
+		dirtyWords.add("傻吊");
+		dirtyWords.add("傻屌");
 	}
 }

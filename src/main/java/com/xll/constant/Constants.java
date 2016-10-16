@@ -9,7 +9,6 @@ package com.xll.constant;
 public class Constants {
 	
 	public static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-	
 	public static final String LOGIN_URL = "https://wx.qq.com/";
 	public static final String QR_URL_PREFIX = "https://login.weixin.qq.com/qrcode/";
 	public static final String SEND_MSG_PREFIX = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxsendmsg";
@@ -28,5 +27,8 @@ public class Constants {
 	public static final String SEND_MSG_FAILURE = "send message fail.";
 	public static final String SEND_MSG_SUCCESS = "send message success.";
 	public static final String LOGIN_HINT = "first , you should login the weixin.";
+	
+	/**图片根路径*/
+	public static final String PIC_ROOT_PATH = "E:\\图图";
 
 }
