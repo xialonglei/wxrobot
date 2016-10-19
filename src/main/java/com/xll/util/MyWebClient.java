@@ -14,7 +14,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author xialonglei
  * @date 2016/10/02
  */
-@Component
+@Component(value = "myWebClient")
 public class MyWebClient extends WebClient {
 
 	private static final long serialVersionUID = -4741634000362033009L;

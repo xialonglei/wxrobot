@@ -4,22 +4,27 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.xll.bean.WXData;
 import com.xll.constant.Constants;
 import com.xll.listener.ResponseListener;
+import com.xll.util.MyWebClient;
 
+@Component
 public class QRListener extends ResponseListener{
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginListener.class);
 	
 	private WXData data = WXData.getSingleton();
 	
-	public QRListener(WebClient webClient) throws IllegalArgumentException {
-		super(webClient);
+	@Autowired(required = true)
+	public QRListener(@Qualifier("myWebClient")MyWebClient myWebClient) throws IllegalArgumentException {
+		super(myWebClient);
 	}
 
 	@Override

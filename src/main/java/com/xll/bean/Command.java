@@ -15,5 +15,8 @@ public class Command {
 	public static final String OPEN = "open";
 	/**向好友发送图片的指令*/
 	public static final String PIC = "pic";
+	
+	public static final String STOP_AUTO_SEND = "sas";
+	public static final String OPEN_AUTO_SEND = "oas";
 
 }

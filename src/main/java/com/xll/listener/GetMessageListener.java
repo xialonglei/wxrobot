@@ -6,13 +6,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.xll.bean.Command;
@@ -20,6 +23,7 @@ import com.xll.bean.Contactor;
 import com.xll.bean.RobotResponse;
 import com.xll.bean.WXData;
 import com.xll.service.MessageService;
+import com.xll.util.MyWebClient;
 import com.xll.util.PicBootstrap;
 
 /**
@@ -28,17 +32,20 @@ import com.xll.util.PicBootstrap;
  * @author xialonglei
  * @date 2016/10/09
  */
+@Component
 public class GetMessageListener extends ResponseListener {
 	
 	private boolean stop = false;
+	private boolean autoSend = true;
 
+	@Resource
 	private MessageService messageServiceImpl;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GetMessageListener.class);
 	
-	public GetMessageListener(WebClient webClient , MessageService messageServiceImpl) throws IllegalArgumentException {
-		super(webClient);
-		this.messageServiceImpl = messageServiceImpl;
+	@Autowired
+	public GetMessageListener(@Qualifier("myWebClient")MyWebClient myWebClient) throws IllegalArgumentException {
+		super(myWebClient);
 	}
 
 	@Override
@@ -91,7 +98,7 @@ public class GetMessageListener extends ResponseListener {
 		if(!WXData.getRecieveFriends().contains(friend)){
 			List<String> autoRes = new ArrayList<String>();
 			autoRes.add(friend);
-			messageServiceImpl.sendTextMessage(autoRes, "您可以尝试发送,如下指令[loop,all,pic]");
+			messageServiceImpl.sendTextMessage(autoRes, "您可以尝试发送,如下指令[loop,all,pic,sas]");
 			WXData.getRecieveFriends().add(friend);
 			return;
 		}
@@ -143,11 +150,21 @@ public class GetMessageListener extends ResponseListener {
 			}else{
 				message = "对不起,图片库还未初始化完成,请稍后再发送pic指令!";
 			}
+		}else if(con.toLowerCase().trim().equals(Command.STOP_AUTO_SEND)){
+			autoSend = false;
+			message = "您已经关闭了自动发送功能!";
+		}else if(con.toLowerCase().trim().equals(Command.OPEN_AUTO_SEND)){
+			autoSend = true;
+			message = "您已经开启了自动发送功能!";
 		}else{
 			if(RobotResponse.dirtyWords.contains(con.trim().replace(" ", ""))){
 				message = "维护网络环境,人人有责!";
 			}else{
-				message = RobotResponse.autoSend.get((int)(Math.random() * RobotResponse.autoSend.size()));
+				if(autoSend){
+					message = RobotResponse.autoSend.get((int)(Math.random() * RobotResponse.autoSend.size()));
+				}else{
+					return;
+				}
 			}
 		}
 		messageServiceImpl.sendTextMessage(autoRes, message);

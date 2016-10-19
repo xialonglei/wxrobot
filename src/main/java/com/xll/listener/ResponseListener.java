@@ -1,8 +1,8 @@
 package com.xll.listener;
 
-import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.util.FalsifyingWebConnection;
+import com.xll.util.MyWebClient;
 
 /**
  *监听器工厂
@@ -12,8 +12,8 @@ import com.gargoylesoftware.htmlunit.util.FalsifyingWebConnection;
  */
 public abstract class ResponseListener extends FalsifyingWebConnection{
 
-	public ResponseListener(WebClient webClient) throws IllegalArgumentException {
-		super(webClient);
+	public ResponseListener(MyWebClient myWebClient) throws IllegalArgumentException {
+		super(myWebClient);
 	}
 	
 	public void handle(WebResponse response){

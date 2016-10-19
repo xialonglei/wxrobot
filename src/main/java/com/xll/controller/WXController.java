@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xll.bean.WXData;
 import com.xll.constant.Constants;
 import com.xll.service.MessageService;
-import com.xll.util.ListenerLauncher;
 import com.xll.util.MyWebClient;
 import com.xll.util.PicBootstrap;
 
@@ -40,8 +39,6 @@ public class WXController {
 	@RequestMapping("/getImage")
 	public String getImage(HttpSession session){
 		new Thread(new PicBootstrap()).start();
-		LOGGER.info("监听器开始初始化!");
-		new ListenerLauncher().init(myWebClient , messageServiceImpl);
 		try {
 			myWebClient.visitUrl(Constants.LOGIN_URL);
 			Thread.sleep(1000);
