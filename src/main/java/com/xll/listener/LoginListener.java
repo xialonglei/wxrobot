@@ -3,6 +3,8 @@ package com.xll.listener;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -21,10 +23,15 @@ import com.gargoylesoftware.htmlunit.util.NameValuePair;
 import com.xll.bean.WXData;
 import com.xll.constant.Constants;
 import com.xll.listener.ResponseListener;
+import com.xll.util.MailUtil;
+import com.xll.util.MailUtil.MessageContent;
 import com.xll.util.MyWebClient;
 
 @Component
 public class LoginListener extends ResponseListener{
+	
+	@Resource
+	private MailUtil mailUtil;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginListener.class);
 
@@ -83,6 +90,17 @@ public class LoginListener extends ResponseListener{
 			resContent = response.getContentAsString();
 			JSONObject obj = JSON.parseObject(resContent);
 			String loginUsername = obj.getJSONObject("User").getString("UserName");
+			new Thread(new Runnable(){
+
+				@Override
+				public void run() {
+					MessageContent messageContent = mailUtil.new MessageContent();
+					messageContent.setContent("<h3>[ " + obj.getJSONObject("User").getString("NickName") + " ]  登录了您微信机器人服务器！</h3>");
+					mailUtil.sendEmail(messageContent);
+					
+				}
+				
+			}).start();
 			
 			LOGGER.info("监听获取登录用户URL[{}],登录用户名[{}]" , response.getWebRequest().getUrl().toString() , loginUsername);
 			
